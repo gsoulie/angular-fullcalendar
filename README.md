@@ -61,14 +61,38 @@ vdom.js:3 Uncaught Error: Please import the top-level full calendar lib before a
 | eventContent | callback for event building. You can specify css rules inside the callback |
 | eventClassNames | array of css class |
 | hiddenDays | array of days to hide (ex: [2, 4] will hide Tuesday ans Thursday |
+| select | calendar slot selection handling callback |
+| eventClick | event click handling callback |
+| eventSet | event update handling callback |
 | eventAdd | you can update a remote database when this fire |
 | eventChange | you can update a remote database when this fire |
 | eventRemove | you can update a remote database when this fire |
 
 ### Example 
 
+*View file*
+
+````
+<div class='main-container-main'>
+    <div>
+      <!-- invisible datepicker button which trigger angular material datepicker-->
+      <mat-form-field style="width:1px;visibility:hidden;">
+        <input matInput [matDatepicker]="picker" (dateChange)="changeDate('change', $event)">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button style="width:1px;visibility:hidden;" id="datePicker" mat-icon-button color="primary"
+        (click)="picker.open()">
+        <mat-icon>event</mat-icon>
+      </button>
+    </div>
+
+    <!-- Scheduler -->
+    <full-calendar #customCalendar *ngIf='calendarVisible' [options]='calendarOptions'></full-calendar>
+  </div>
 ````
 
+*Controller file*
+````
 @ViewChild('customCalendar', { static: false }) calendarComponent: FullCalendarComponent;
 
 calendarOptions: CalendarOptions = {
@@ -184,5 +208,64 @@ calendarOptions: CalendarOptions = {
     eventDiv.appendChild(infoEl);
     let arrayOfDomNodes = [eventDiv];
     return { domNodes: arrayOfDomNodes };
+  }
+  
+  /**
+   * Fonction déclenchée lors d'un changement de date dans le popup calendrier
+   * @param type
+   * @param event
+   */
+  changeDate(type: string, event: MatDatepickerInputEvent<Date>) {
+    this.selectedDate = new Date(event.value);  // date sélectionnée
+    const calendarApi = this.calendarComponent.getApi();  // récupérer l'objet api du composant calendar
+    calendarApi.gotoDate(this.selectedDate);  // naviguer à la date sélectionnée
+  }
+  
+  /**
+   * Clic sur un événement
+   * @param clickInfo
+   */
+  handleEventClick(clickInfo: EventClickArg) {
+    // Par défaut propose la suppression
+    if (confirm(`Are you sure you want to delete the event '${clickInfo.event.title}'`)) {
+      clickInfo.event.remove();
+    }
+  }
+  
+  /**
+   * Clic sur une période du calendrier et déclencher la popup de création d'événement
+   * @param selectInfo : date sélectionnée
+   */
+  handleDateSelect(selectInfo: DateSelectArg) {
+    const calendarApi = selectInfo.view.calendar;
+    const dialogRef = this.dialog.open(AddProjetComponent, {
+      width: '800px',
+      height: '800px'
+    });
+
+    // Traitement après fermeture de la modale
+    dialogRef.afterClosed().subscribe(result => {
+      const newEvent = result as IEventData;
+
+      if (newEvent) {
+        // calcul de l'heure de fin en fonction du paramètre 'duration' de l'item
+        const endEvent = this.addMinutes(new Date(selectInfo.startStr), newEvent.duration);
+        console.log(JSON.stringify(newEvent));
+        // Création du nouvel événement
+        calendarApi.addEvent({
+          id: createEventId(),  // id auto
+          title: newEvent.title,
+          start: selectInfo.startStr,
+          end: endEvent,//selectInfo.endStr,
+          allDay: selectInfo.allDay,  // ajouter l'evt dans le résumé du jour
+          extendedProps: newEvent.extendedProps,
+          classNames: ['myEvent'],  // ne fonctionne pas
+        });
+      }
+    });
+  }
+  
+  handleEvents(events: EventApi[]) {
+    this.currentEvents = events;
   }
   ````
