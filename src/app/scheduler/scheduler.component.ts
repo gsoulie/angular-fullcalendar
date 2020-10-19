@@ -37,6 +37,9 @@ export class SchedulerComponent implements OnInit {
         }
       }
     },
+    eventOverlap: false,  // activer / désactiver la possibilité de superposer des événements
+                          // ATTENTION si un événement de type background est déclaré (ex coloriser la pause de 12h-14h) alors
+                          // le calendar considère que c'est un chevauchement et empêchera la création d'un événement sur ce créneau 
     locale: 'fr', // passage du calendrier en locale Française
     firstDay: 1,  // jour de départ du calendrier
     slotMinTime: '07:00', // heure de départ du scheduler
