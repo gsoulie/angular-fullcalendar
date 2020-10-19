@@ -33,6 +33,26 @@ vdom.js:3 Uncaught Error: Please import the top-level full calendar lib before a
 | option | description |
 | -------- | ------------- |
 | headerToolbar | calendar toolbar options |
+| customButtons | calendar toolbar options |
+| eventOverlap | determines if events being dragged and resized are allowed to overlap each other.  |
+| locale | define calendar locale (ex 'fr', 'en') |
+| slotMinTime | starting hour of calendar (ex: '07:00') |
+| slotMaxTime | ending hour of calendar |
+| initialView | initial calendar type of view (ex: 'timeGriddWeek') |
+| weekends | show / hide weekend by default |
+| editable | allow event modification |
+| selectable | allow event selection |
+| selectMirror | show event shadow when dragging it |
+| dayMaxEvents | The max number of events within a given day |
+| droppable | allow external event drag and drop |
+| slotEventOverlap | determines if timed events in TimeGrid view should visually overlap |
+| headerToolbar | calendar toolbar options |
+| headerToolbar | calendar toolbar options |
+| headerToolbar | calendar toolbar options |
+| headerToolbar | calendar toolbar options |
+| headerToolbar | calendar toolbar options |
+| headerToolbar | calendar toolbar options |
+| headerToolbar | calendar toolbar options |
 
 calendarOptions: CalendarOptions = {
     headerToolbar: {
