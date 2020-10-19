@@ -46,13 +46,29 @@ vdom.js:3 Uncaught Error: Please import the top-level full calendar lib before a
 | dayMaxEvents | The max number of events within a given day |
 | droppable | allow external event drag and drop |
 | slotEventOverlap | determines if timed events in TimeGrid view should visually overlap |
-| headerToolbar | calendar toolbar options |
-| headerToolbar | calendar toolbar options |
-| headerToolbar | calendar toolbar options |
-| headerToolbar | calendar toolbar options |
-| headerToolbar | calendar toolbar options |
-| headerToolbar | calendar toolbar options |
-| headerToolbar | calendar toolbar options |
+| allDaySlot | show / hide summary area on the top of the calendar |
+| displayEventTime | show / hide the starting and ending hour of event |
+| slotDuration | default event duration (ex: '00:30:00') |
+| slotMaxTime | event max duration |
+| slotLabelFormat | hours column format |
+| slotLabelClassNames | array of css classname for slotLabel column |
+| plugins | array of calendar's modules |
+| eventColor | default event color |
+| eventBackgroundColor | default event background color |
+| eventBorderColor | default event border color |
+| eventTextColor | default event text color |
+| eventContent | callback for event building. You can specify css rules inside the callback |
+| eventClassNames | array of css class |
+| hiddenDays | array of days to hide (ex: [2, 4] will hide Tuesday ans Thursday |
+| eventAdd | you can update a remote database when this fire |
+| eventChange | you can update a remote database when this fire |
+| eventRemove | you can update a remote database when this fire |
+
+### Example 
+
+````
+
+@ViewChild('customCalendar', { static: false }) calendarComponent: FullCalendarComponent;
 
 calendarOptions: CalendarOptions = {
     headerToolbar: {
@@ -140,3 +156,32 @@ calendarOptions: CalendarOptions = {
     eventRemove:
     */
   };
+  
+  
+  /**
+   * Construction custom du contenu des tuiles event
+   * pour permettre l'affichage d'informations complémentaires
+   * @param arg
+   */
+  buildEventTile(arg: any) {
+    // création du DOM
+    let eventDiv = document.createElement('div');
+    let titleEl = document.createElement('b');
+    let infoEl = document.createElement('i');
+
+    // ajout des styles
+    eventDiv.classList.add('fc-event-info');
+    titleEl.classList.add('fc-event-title');
+
+    titleEl.innerHTML = arg.event.title;
+    // Ajout des infos complémentaires si existantes
+    if (arg.event.extendedProps.client) {
+      infoEl.innerHTML = '<br>' + arg.event.extendedProps.client;
+    }
+
+    eventDiv.appendChild(titleEl);
+    eventDiv.appendChild(infoEl);
+    let arrayOfDomNodes = [eventDiv];
+    return { domNodes: arrayOfDomNodes };
+  }
+  ````
