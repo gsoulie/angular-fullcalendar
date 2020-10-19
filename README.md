@@ -1,5 +1,6 @@
-## Angular Fullcalendar Demo
+# Angular Fullcalendar Demo
 
+## Installation
 
 [Documentation](https://fullcalendar.io/docs/angular)       
 
