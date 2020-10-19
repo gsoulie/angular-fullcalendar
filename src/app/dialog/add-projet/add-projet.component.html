@@ -1,0 +1,17 @@
+<h1 mat-dialog-title>Sélection d'une activité</h1>
+<mat-tab-group mat-align-tabs="start">
+  <mat-tab label="Saisie rapide">
+    <div class="content-div">
+      <app-code-item *ngFor="let ev of quickEvents" [event]="ev" id="{{ ev.id }}" (click)="onClickItem(ev)"></app-code-item>
+    </div>
+  </mat-tab>
+  <mat-tab label="Recherche approfondie">
+    <div class="content-div">
+      <app-code-item *ngFor="let ev of advancedEvents" [event]="ev" id="{{ ev.id }}" (click)="onClickItem(ev)"></app-code-item>
+    </div>
+  </mat-tab>
+</mat-tab-group>
+<div mat-dialog-actions>
+  <button mat-stroked-button (click)="onNoClick()">Annuler la saisie</button>
+  <!-- <button mat-button [mat-dialog-close]="data.animal" cdkFocusInitial>Ok</button> -->
+</div>

@@ -1,0 +1,29 @@
+
+<div class='main-container'>
+
+  <!-- Menu latéral -->
+  <div class='main-container-sidebar'>
+    <app-side-menu (handleWeekend)="handleWeekendsToggle($event)" (handleSlotDuration)="onChangeSlotDuration($event)"></app-side-menu>
+  </div>
+
+  <div class='main-container-main'>
+    <div>
+      <!-- Bouton calendrier invisible -->
+      <mat-form-field style="width:1px;visibility:hidden;">
+        <input matInput [matDatepicker]="picker" (dateChange)="changeDate('change', $event)">
+        <mat-datepicker #picker></mat-datepicker>
+      </mat-form-field>
+      <button style="width:1px;visibility:hidden;" id="datePicker" mat-icon-button color="primary" (click)="picker.open()">
+        <mat-icon>event</mat-icon>
+      </button>
+    </div>
+
+    <!-- Scheduler -->
+    <full-calendar
+      #customCalendar
+      *ngIf='calendarVisible'
+      [options]='calendarOptions'
+    ></full-calendar>
+  </div>
+
+</div>

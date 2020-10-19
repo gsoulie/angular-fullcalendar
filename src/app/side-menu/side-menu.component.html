@@ -1,0 +1,41 @@
+<div>
+  <div class='main-container-sidebar-section'>
+    <app-activity-list id="dnd" [data]="favoris"></app-activity-list>
+    <!-- <h2>Mes favoris</h2>
+    <app-activity-list id="dnd" [data]="favoris"></app-activity-list>
+
+    <h2>Récents</h2>
+    <app-activity-list id="dnd" [data]="recents"></app-activity-list> -->
+  </div>
+  <div class='main-container-sidebar-section'>
+    <h2>Options</h2>
+    <mat-slide-toggle
+      class="example-margin"
+      (change)='handleWeekendsToggle()'
+      >
+      Afficher les jours ouvrables
+    </mat-slide-toggle>
+
+    <h3>Change slot duration</h3>
+    <mat-radio-group (change)="onChangeSlotDuration()"
+      aria-labelledby="example-radio-group-label"
+      class="example-radio-group"
+      [(ngModel)]="slotDuration">
+      <mat-radio-button class="example-radio-button" [value]="10">
+        10 min
+      </mat-radio-button>
+      <mat-radio-button class="example-radio-button" [value]="15">
+        15 min
+      </mat-radio-button>
+      <mat-radio-button class="example-radio-button" [value]="20">
+        20 min
+      </mat-radio-button>
+      <mat-radio-button class="example-radio-button" [value]="30">
+        30 min
+      </mat-radio-button>
+      <mat-radio-button class="example-radio-button" [value]="60">
+        60 min
+      </mat-radio-button>
+    </mat-radio-group>
+  </div>
+</div>

@@ -1,0 +1,15 @@
+.event-div {
+  height: 50px;
+  border-radius: 10px;
+  background-color: #DAE8EB;
+  margin-bottom: 10px;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  padding-left: 10px;
+  cursor: pointer;
+}
+.event-title {
+  font-weight: bold;
+  color: #56686D;
+}

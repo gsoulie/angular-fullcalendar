@@ -1,0 +1,29 @@
+/* You can add global styles to this file, and also import other style files */
+
+html, body { height: 100%; }
+body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
+
+/* customisation styles calendrier */
+.slotLabel {
+  color: #56686D;
+  font-weight: bold;
+  font-size: 14px;
+}
+.fc-event-main {
+  background: #DAE8EB;
+  border-radius: 10px;
+}
+.fc-event-title-container {
+  /*padding-left: 8px;*/
+}
+.fc-event-title {
+  /*padding-left: 8px;*/
+  font-size: 14px;
+  font-weight: bold;
+}
+.fc-sticky {
+
+}
+.fc-event-info {
+  padding-left: 8px;
+}
