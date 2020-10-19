@@ -32,10 +32,11 @@ vdom.js:3 Uncaught Error: Please import the top-level full calendar lib before a
 
 | option | description |
 | -------- | ------------- |
-| headerToolbar | calendar toolbar options |
-| customButtons | calendar toolbar options |
-| eventOverlap | determines if events being dragged and resized are allowed to overlap each other.  |
+| headerToolbar | defines the buttons and title at the top of the calendar |
+| customButtons | defines custom buttons that can be used in the headerToolbar/footerToolbar |
+| eventOverlap | determines if events being dragged and resized are allowed to overlap each other |
 | locale | define calendar locale (ex 'fr', 'en') |
+| firstDay | calendar's starting day |
 | slotMinTime | starting hour of calendar (ex: '07:00') |
 | slotMaxTime | ending hour of calendar |
 | initialView | initial calendar type of view (ex: 'timeGriddWeek') |
