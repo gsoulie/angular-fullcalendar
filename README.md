@@ -269,3 +269,26 @@ calendarOptions: CalendarOptions = {
     this.currentEvents = events;
   }
   ````
+
+### Loading data from api
+
+````
+async ngOnInit() {
+    const { calendarOptions } = this;
+    const TODAY_STR = new Date().toISOString().replace(/T.*$/, ''); // YYYY-MM-DD of today
+
+    await this.sampleS.fetchTest()  // webservice
+    .then((res) => {     
+      this.testData.push({
+        id: res.id,
+        title: res.title,
+        start: TODAY_STR + 'T09:00:00',
+        end: TODAY_STR + 'T11:30:00',
+        extendedProps: { customer: res.customer}
+      });
+      calendarOptions.events = this.testData; // update data
+      this.cdRef.detectChanges();
+    });
+    
+  }
+````
